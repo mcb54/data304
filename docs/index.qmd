@@ -1,5 +1,8 @@
 ---
 title: "index"
 format: html
+embed-resources: true
 ---
 
+## My Web Page!
+I'm all set!
