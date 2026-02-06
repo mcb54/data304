@@ -1,0 +1,6 @@
+---
+title: "hw5"
+format: html
+output-file: "index"
+---
+
