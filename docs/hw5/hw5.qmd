@@ -3,4 +3,91 @@ title: "hw5"
 format: html
 output-file: "index"
 ---
+```{r}
+library(vegawidget)
+```
+## Excercise 2
+### Smallpox eradication by country
+
+### a).[This is the link to my graphic](https://preview.redd.it/smallpox-when-was-it-eliminated-in-each-country-v0-klg283ysxuhg1.png?width=1080&crop=smart&auto=webp&s=a8a6e02ff9cac6d5c24d5fb5136100695262f32e)
+![Here is my graphic.](https://preview.redd.it/smallpox-when-was-it-eliminated-in-each-country-v0-klg283ysxuhg1.png?width=1080&crop=smart&auto=webp&s=a8a6e02ff9cac6d5c24d5fb5136100695262f32e)
+
+### Marks being used
+> b). The main mark being used in this graphic is the country shapes. The mapped variables are country, which is mapped to the corresponding country shape. Another mapped variable is year in which smallpox was eradicated. Year is mapped to color.
+
+### Main story
+> c).The main story that this graphic tells is when smallpox became eliminated in each country. The graphic specifically tells us that Iceland was the first country to elimate smallpox, in 1872. The last country to eliminate the disease was Somalia in 1977. 
+
+### Why is this a good graphic?
+> d). This is a good graphic because it very clearly communicates the information. The legend makes it very easy to see which color is mapped to which year bin.
+
+### What I already know how to do
+> e). One thing that I would know how to do from this graphic is mapping color to the year bins in Vegalite.
+
+### What I don't know how to do
+> f). One thing that I would not know how to do from this graphic is the mark. I am not sure how to get the country outlines in vegalite and get them to be filled in with the corresponding colors. 
+
+## Excercise 3
+### Seattle Weather
+
+### Mean Temperature For Each Month
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+  },
+  "transform": [{"timeUnit":"month", "field": "date", "as": "month"}],
+  "width": 800,
+  "height": 150,
+  "title": "Mean Seattle Monthly Temperature",
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "month", "type": "ordinal", "timeUnit": "month", "title": "Month"},
+    "y": {"aggregate": "mean", "field": "temp_max", "type": "quantitative", "title": "Mean Daily High Temperature"}
+  }
+}' |> as_vegaspec()
+```
+
+### Daily High Temperature
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+  },
+  "width": 800,
+  "height": 300,
+  "title": "Seattle Daily High Temperature",
+  "mark": "line",
+  "encoding": {
+    "x": {"field": "date", "type": "temporal", "title": "Date"},
+    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"}
+  }
+}' |> as_vegaspec()
+```
+
+### Daily High Temperature Overlaid by Year
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+  },
+  "transform": [{"timeUnit":"year", "field": "date", "as": "year"}, {"timeUnit":"monthdate", "field": "date", "as": "month_day"}],
+  "width": 1000,
+  "height": 300,
+  "title": "Seattle Daily High Temperature by Year",
+  "mark": {"type": "line", "strokeWidth": 1, "opacity": 0.7},
+  "encoding": {
+    "x": {"field": "month_day", "type": "temporal", "title": "Day of Year"},
+    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"},
+    "color": {"field": "year", "type": "nominal", "title": "Year"}
+  }
+}' |> as_vegaspec()
+```
+
 

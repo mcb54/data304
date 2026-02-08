@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,6 +70,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="hw5_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="hw5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="hw5_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="hw5_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="hw5_files/libs/vega-5.24.0/vega@5.24.0.min.js"></script>
+<script src="hw5_files/libs/vega-lite-5.16.3/vega-lite@5.16.3.min.js"></script>
+<link href="hw5_files/libs/vega-embed-6.22.2/vega-embed.css" rel="stylesheet">
+<script src="hw5_files/libs/vega-embed-6.22.2/vega-embed@6.22.2.min.js"></script>
+<script src="hw5_files/libs/vegawidget-vl5-binding-0.5.0/vegawidget-vl5.js"></script>
 
 
 </head>
@@ -64,7 +105,246 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegawidget)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="excercise-2" class="level2">
+<h2 class="anchored" data-anchor-id="excercise-2">Excercise 2</h2>
+<section id="smallpox-eradication-by-country" class="level3">
+<h3 class="anchored" data-anchor-id="smallpox-eradication-by-country">Smallpox eradication by country</h3>
+</section>
+<section id="a.this-is-the-link-to-my-graphic" class="level3">
+<h3 class="anchored" data-anchor-id="a.this-is-the-link-to-my-graphic">a).<a href="https://preview.redd.it/smallpox-when-was-it-eliminated-in-each-country-v0-klg283ysxuhg1.png?width=1080&amp;crop=smart&amp;auto=webp&amp;s=a8a6e02ff9cac6d5c24d5fb5136100695262f32e">This is the link to my graphic</a></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://preview.redd.it/smallpox-when-was-it-eliminated-in-each-country-v0-klg283ysxuhg1.png?width=1080&amp;crop=smart&amp;auto=webp&amp;s=a8a6e02ff9cac6d5c24d5fb5136100695262f32e" class="img-fluid figure-img"></p>
+<figcaption>Here is my graphic.</figcaption>
+</figure>
+</div>
+</section>
+<section id="marks-being-used" class="level3">
+<h3 class="anchored" data-anchor-id="marks-being-used">Marks being used</h3>
+<blockquote class="blockquote">
+<p>b). The main mark being used in this graphic is the country shapes. The mapped variables are country, which is mapped to the corresponding country shape. Another mapped variable is year in which smallpox was eradicated. Year is mapped to color.</p>
+</blockquote>
+</section>
+<section id="main-story" class="level3">
+<h3 class="anchored" data-anchor-id="main-story">Main story</h3>
+<blockquote class="blockquote">
+<p>c).The main story that this graphic tells is when smallpox became eliminated in each country. The graphic specifically tells us that Iceland was the first country to elimate smallpox, in 1872. The last country to eliminate the disease was Somalia in 1977.</p>
+</blockquote>
+</section>
+<section id="why-is-this-a-good-graphic" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-this-a-good-graphic">Why is this a good graphic?</h3>
+<blockquote class="blockquote">
+<p>d). This is a good graphic because it very clearly communicates the information. The legend makes it very easy to see which color is mapped to which year bin.</p>
+</blockquote>
+</section>
+<section id="what-i-already-know-how-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-i-already-know-how-to-do">What I already know how to do</h3>
+<blockquote class="blockquote">
+<p>e). One thing that I would know how to do from this graphic is mapping color to the year bins in Vegalite.</p>
+</blockquote>
+</section>
+<section id="what-i-dont-know-how-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-i-dont-know-how-to-do">What I don’t know how to do</h3>
+<blockquote class="blockquote">
+<p>f). One thing that I would not know how to do from this graphic is the mark. I am not sure how to get the country outlines in vegalite and get them to be filled in with the corresponding colors.</p>
+</blockquote>
+</section>
+</section>
+<section id="excercise-3" class="level2">
+<h2 class="anchored" data-anchor-id="excercise-3">Excercise 3</h2>
+<section id="seattle-weather" class="level3">
+<h3 class="anchored" data-anchor-id="seattle-weather">Seattle Weather</h3>
+</section>
+<section id="mean-temperature-for-each-month" class="level3">
+<h3 class="anchored" data-anchor-id="mean-temperature-for-each-month">Mean Temperature For Each Month</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "data": {</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "transform": [{"timeUnit":"month", "field": "date", "as": "month"}],</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 800,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 150,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Mean Seattle Monthly Temperature",</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": "bar",</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "month", "type": "ordinal", "timeUnit": "month", "title": "Month"},</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"aggregate": "mean", "field": "temp_max", "type": "quantitative", "title": "Mean Daily High Temperature"}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="htmlwidget-bbe0950067d088223d6e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bbe0950067d088223d6e">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+    },
+    "transform": [
+      {
+        "timeUnit": "month",
+        "field": "date",
+        "as": "month"
+      }
+    ],
+    "width": 800,
+    "height": 150,
+    "title": "Mean Seattle Monthly Temperature",
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "month",
+        "type": "ordinal",
+        "timeUnit": "month",
+        "title": "Month"
+      },
+      "y": {
+        "aggregate": "mean",
+        "field": "temp_max",
+        "type": "quantitative",
+        "title": "Mean Daily High Temperature"
+      }
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="daily-high-temperature" class="level3">
+<h3 class="anchored" data-anchor-id="daily-high-temperature">Daily High Temperature</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "data": {</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 800,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 300,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Seattle Daily High Temperature",</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": "line",</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "date", "type": "temporal", "title": "Date"},</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="htmlwidget-6ba7b5f94cafcc95625e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6ba7b5f94cafcc95625e">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+    },
+    "width": 800,
+    "height": 300,
+    "title": "Seattle Daily High Temperature",
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "title": "Date"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "title": "Daily High Temperature"
+      }
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="daily-high-temperature-overlaid-by-year" class="level3">
+<h3 class="anchored" data-anchor-id="daily-high-temperature-overlaid-by-year">Daily High Temperature Overlaid by Year</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "data": {</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "transform": [{"timeUnit":"year", "field": "date", "as": "year"}, {"timeUnit":"monthdate", "field": "date", "as": "month_day"}],</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 1000,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 300,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Seattle Daily High Temperature by Year",</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": {"type": "line", "strokeWidth": 1, "opacity": 0.7},</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "month_day", "type": "temporal", "title": "Day of Year"},</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"},</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">    "color": {"field": "year", "type": "nominal", "title": "Year"}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="htmlwidget-99a6d60921cacdce808a" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-99a6d60921cacdce808a">{"x":{
+  "chart_spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
+    },
+    "transform": [
+      {
+        "timeUnit": "year",
+        "field": "date",
+        "as": "year"
+      },
+      {
+        "timeUnit": "monthdate",
+        "field": "date",
+        "as": "month_day"
+      }
+    ],
+    "width": 1000,
+    "height": 300,
+    "title": "Seattle Daily High Temperature by Year",
+    "mark": {
+      "type": "line",
+      "strokeWidth": 1,
+      "opacity": 0.7
+    },
+    "encoding": {
+      "x": {
+        "field": "month_day",
+        "type": "temporal",
+        "title": "Day of Year"
+      },
+      "y": {
+        "field": "temp_max",
+        "type": "quantitative",
+        "title": "Daily High Temperature"
+      },
+      "color": {
+        "field": "year",
+        "type": "nominal",
+        "title": "Year"
+      }
+    }
+  },
+  "embed_options": {
+    "renderer": "canvas",
+    "defaultStyle": true
+  }
+},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
 
 </main>
 <!-- /main column -->
