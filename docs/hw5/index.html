@@ -170,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "transform": [{"timeUnit":"month", "field": "date", "as": "month"}],</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 800,</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 150,</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Mean Seattle Monthly Temperature",</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Mean Seattle Temperature by Month",</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": "bar",</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "month", "type": "ordinal", "timeUnit": "month", "title": "Month"},</span></span>
@@ -178,8 +178,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="htmlwidget-bbe0950067d088223d6e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bbe0950067d088223d6e">{"x":{
+<div id="htmlwidget-89ae468163ac96f13aaa" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-89ae468163ac96f13aaa">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     ],
     "width": 800,
     "height": 150,
-    "title": "Mean Seattle Monthly Temperature",
+    "title": "Mean Seattle Temperature by Month",
     "mark": "bar",
     "encoding": {
       "x": {
@@ -231,15 +231,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 800,</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 300,</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Seattle Daily High Temperature",</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": "line",</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "mark": {"type": "line", "color": "skyblue", "strokeWidth": 1, "opacity": 0.8}, </span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "date", "type": "temporal", "title": "Date"},</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"field": "temp_max", "type": "quantitative", "title": "High Temperature"}</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="htmlwidget-6ba7b5f94cafcc95625e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6ba7b5f94cafcc95625e">{"x":{
+<div id="htmlwidget-db6af89e866d52216822" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-db6af89e866d52216822">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -248,7 +248,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "width": 800,
     "height": 300,
     "title": "Seattle Daily High Temperature",
-    "mark": "line",
+    "mark": {
+      "type": "line",
+      "color": "skyblue",
+      "strokeWidth": 1,
+      "opacity": 0.8
+    },
     "encoding": {
       "x": {
         "field": "date",
@@ -258,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       "y": {
         "field": "temp_max",
         "type": "quantitative",
-        "title": "Daily High Temperature"
+        "title": "High Temperature"
       }
     }
   },
@@ -279,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  "data": {</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  },</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "transform": [{"timeUnit":"year", "field": "date", "as": "year"}, {"timeUnit":"monthdate", "field": "date", "as": "month_day"}],</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  "transform": [ {"timeUnit":"monthdate", "field": "date", "as": "month_day"}],</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  "width": 1000,</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">  "height": 300,</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  "title": "Seattle Daily High Temperature by Year",</span></span>
@@ -287,23 +292,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">  "encoding": {</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    "x": {"field": "month_day", "type": "temporal", "title": "Day of Year"},</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {"field": "temp_max", "type": "quantitative", "title": "Daily High Temperature"},</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">    "color": {"field": "year", "type": "nominal", "title": "Year"}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">    "color": {"field": "year", "type": "ordinal", "title": "Year", "scale": {"scheme": "viridis"}}</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="htmlwidget-99a6d60921cacdce808a" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-99a6d60921cacdce808a">{"x":{
+<div id="htmlwidget-76dc9045aca77fe389a8" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-76dc9045aca77fe389a8">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
       "url": "https://calvin-data304.netlify.app/data/weather-with-dates.csv"
     },
     "transform": [
-      {
-        "timeUnit": "year",
-        "field": "date",
-        "as": "year"
-      },
       {
         "timeUnit": "monthdate",
         "field": "date",
@@ -331,8 +331,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       },
       "color": {
         "field": "year",
-        "type": "nominal",
-        "title": "Year"
+        "type": "ordinal",
+        "title": "Year",
+        "scale": {
+          "scheme": "viridis"
+        }
       }
     }
   },
