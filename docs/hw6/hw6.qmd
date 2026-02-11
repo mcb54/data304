@@ -1,0 +1,88 @@
+---
+title: "hw6"
+format: html
+output-file: "index"
+---
+---
+```{r}
+library(vegawidget)
+```
+## Excercise 1
+
+### a). 
+
+The most interesting lesson that Tufte gives in Chapter 1 is to not distort data. Tufte emphasizes the idea that graphical excellence comes from presenting clear and correct data in the most concise way possible. To provide the most insights, in the least complex way possible. Graphics should communicate data clearly, precisely, and efficiently for the viewer. 
+
+### b). 
+
+Here is a screenshot of the graph I selected from Chapter 1.
+
+![My graphic is on page 35.](images/screenshot.png)
+
+I picked this graphic because it reminded me of graphics we have seen before in class, representing the different reign lengths of English monarchs. 
+
+The encoding for y shows us the name of the monarch, sorted by ascending start date. The encoding for x shows us the start and end date of each reign. 
+
+One element that would be hard for me to encode in VegaLite would be the titles for each Monarch. We just learned how to add the labels, so I still need to practice formatting. 
+
+The point of this graph is to illustrate the overlap and difference in reign lengths between different monarchs. 
+
+
+## Excercise 2
+
+### a) Pages 81-90
+One takeaway I have from this section is that sometimes redesigning your graph will help to make the data more clear. If the wrong mark is selected, the story your data is telling may not be clear to the viewer. Additionally, having unnecesseary data on the graph can clutter your visual. 
+
+### b) Pages 101-103
+One takeaway I have from this section is to take feedback from people regarding my graphs. This will help me to talk through my design choices, as well as get feedback about what is clear to the viewer, and what could still use improvement. 
+
+## Excercise 3
+
+### a). Challenges of the graph
+1. One challenge of this graph is that the y-axis starts at 50% instead of 0%. Another challenge
+2. Another challenge of this graph that there are two y axes. 
+3. Another challenge of this graph is the unnecessary labels for every bar. This makes the graphic appear cluttered. 
+
+### b). How to fix challenges
+1. I would fix the y-axis by starting it at 0. 
+2. I will fix the dual y-axis by creating two graphs instead of one.
+3. I will declutter the graph by removing the unnecessary labels.
+
+### c). My version
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data":
+    { "values" :
+        [{"Date":"Q1-2017","Completion Rate":0.91,"Response Rate":0.023},
+        {"Date":"Q2-2017","Completion Rate":0.93,"Response Rate":0.018},
+        {"Date":"Q3-2017","Completion Rate":0.91,"Response Rate":0.028},
+        {"Date":"Q4-2017","Completion Rate":0.89,"Response Rate":0.023},
+        {"Date":"Q1-2018","Completion Rate":0.84,"Response Rate":0.034},
+        {"Date":"Q2-2018","Completion Rate":0.88,"Response Rate":0.027},
+        {"Date":"Q3-2018","Completion Rate":0.91,"Response Rate":0.026},
+        {"Date":"Q4-2018","Completion Rate":0.87,"Response Rate":0.039},
+        {"Date":"Q1-2019","Completion Rate":0.83,"Response Rate":0.028}] 
+    },
+    "transform": [{"fold": ["Completion Rate", "Response Rate"], "as": ["Metric", "Value"]}],
+    "facet": {"row": {"field": "Metric", "type": "nominal"}},
+    "spec":{"width": 500, "height": 150, "mark": {"type": "bar"},
+    "encoding": {
+      "x": {
+      "field": "Date",
+      "type": "ordinal",
+      "title": "Date"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative"
+    }
+    }
+  }
+}
+'|> as_vegaspec()
+```
+My design uses faceted graphs as opposed to layered, so that it's easier to understand the difference in rates between the graphs. Additionally, the percentages for each y-axis all start at 0, and there is no unecessary text. 
+
+
