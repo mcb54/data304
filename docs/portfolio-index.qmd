@@ -13,6 +13,7 @@ Welcome!
 
 This site showcases my coursework and projects for **DATA 304.**
 
+### Homework Assignments
 
 [HW 5](hw5/)
 
