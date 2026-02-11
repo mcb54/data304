@@ -177,26 +177,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">        {"Date":"Q4-2018","Completion Rate":0.87,"Response Rate":0.039},</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">        {"Date":"Q1-2019","Completion Rate":0.83,"Response Rate":0.028}] </span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">    },</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">    "transform": [{"fold": ["Completion Rate", "Response Rate"], "as": ["Metric", "Value"]}],</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">    "facet": {"row": {"field": "Metric", "type": "nominal"}},</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">    "spec":{"width": 500, "height": 150, "mark": {"type": "bar"},</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">    "encoding": {</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">      "x": {</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="st">      "field": "Date",</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="st">      "type": "ordinal",</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="st">      "title": "Date"</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="st">    },</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="st">    "y": {</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="st">      "field": "Value",</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="st">      "type": "quantitative"</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="st">'</span><span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">    "vconcat": [{"title": "Completion Rate", "width": 600, "height": 200, "mark": "bar", "encoding": {"x": {"field": "Date", "type": "ordinal" }, "y": {"field": "Completion Rate", "type": "quantitative"}}},</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">    {"title": "Response Rate", "width": 600, "height": 200, "mark": {"type": "line", "point": true, "color": "orange"}, "encoding": {"x": {"field": "Date", "type": "ordinal"}, "y": {"field": "Response Rate", "type": "quantitative"}}}],</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">    "resolve": { "scale": {"x": "shared"}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="st">'</span><span class="sc">|&gt;</span> <span class="fu">as_vegaspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="htmlwidget-521a01964796a9328f8e" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-521a01964796a9328f8e">{"x":{
+<div id="htmlwidget-9369a349b99c4f4c6f86" style="width:auto;height:auto;" class="vegawidget-vl5 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9369a349b99c4f4c6f86">{"x":{
   "chart_spec": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
@@ -248,40 +237,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         }
       ]
     },
-    "transform": [
+    "vconcat": [
       {
-        "fold": [
-          "Completion Rate",
-          "Response Rate"
-        ],
-        "as": [
-          "Metric",
-          "Value"
-        ]
+        "title": "Completion Rate",
+        "width": 600,
+        "height": 200,
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "Date",
+            "type": "ordinal"
+          },
+          "y": {
+            "field": "Completion Rate",
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "title": "Response Rate",
+        "width": 600,
+        "height": 200,
+        "mark": {
+          "type": "line",
+          "point": true,
+          "color": "orange"
+        },
+        "encoding": {
+          "x": {
+            "field": "Date",
+            "type": "ordinal"
+          },
+          "y": {
+            "field": "Response Rate",
+            "type": "quantitative"
+          }
+        }
       }
     ],
-    "facet": {
-      "row": {
-        "field": "Metric",
-        "type": "nominal"
-      }
-    },
-    "spec": {
-      "width": 500,
-      "height": 150,
-      "mark": {
-        "type": "bar"
-      },
-      "encoding": {
-        "x": {
-          "field": "Date",
-          "type": "ordinal",
-          "title": "Date"
-        },
-        "y": {
-          "field": "Value",
-          "type": "quantitative"
-        }
+    "resolve": {
+      "scale": {
+        "x": "shared"
       }
     }
   },
@@ -292,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 },"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<p>My design uses faceted graphs as opposed to layered, so that it’s easier to understand the difference in rates between the graphs. Additionally, the percentages for each y-axis all start at 0, and there is no unecessary text.</p>
+<p>My design uses vconcat to concatenate the charts and stack them as opposed to the previous layered design. This makes it easier to understand the difference in rates between the graphs. Additionally, the percentages for each y-axis all start at 0, and there is no unecessary text for a more clear and concise graph.</p>
 </section>
 </section>
 

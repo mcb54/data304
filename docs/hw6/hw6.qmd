@@ -65,24 +65,13 @@ One takeaway I have from this section is to take feedback from people regarding 
         {"Date":"Q4-2018","Completion Rate":0.87,"Response Rate":0.039},
         {"Date":"Q1-2019","Completion Rate":0.83,"Response Rate":0.028}] 
     },
-    "transform": [{"fold": ["Completion Rate", "Response Rate"], "as": ["Metric", "Value"]}],
-    "facet": {"row": {"field": "Metric", "type": "nominal"}},
-    "spec":{"width": 500, "height": 150, "mark": {"type": "bar"},
-    "encoding": {
-      "x": {
-      "field": "Date",
-      "type": "ordinal",
-      "title": "Date"
-    },
-    "y": {
-      "field": "Value",
-      "type": "quantitative"
-    }
-    }
+    "vconcat": [{"title": "Completion Rate", "width": 600, "height": 200, "mark": "bar", "encoding": {"x": {"field": "Date", "type": "ordinal" }, "y": {"field": "Completion Rate", "type": "quantitative"}}},
+    {"title": "Response Rate", "width": 600, "height": 200, "mark": {"type": "line", "point": true, "color": "orange"}, "encoding": {"x": {"field": "Date", "type": "ordinal"}, "y": {"field": "Response Rate", "type": "quantitative"}}}],
+    "resolve": { "scale": {"x": "shared"}
   }
 }
 '|> as_vegaspec()
 ```
-My design uses faceted graphs as opposed to layered, so that it's easier to understand the difference in rates between the graphs. Additionally, the percentages for each y-axis all start at 0, and there is no unecessary text. 
+My design uses vconcat to concatenate the charts and stack them as opposed to the previous layered design. This makes it easier to understand the difference in rates between the graphs. Additionally, the percentages for each y-axis all start at 0, and there is no unecessary text for a more clear and concise graph.  
 
 
