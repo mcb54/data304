@@ -1,0 +1,344 @@
+---
+title: "hw7"
+format: html
+output-file: "index"
+---
+---
+```{r}
+library(vegawidget)
+```
+## Excercise 1
+
+## a). 
+One of the guidelines Wilke's gives about bar charts is that if the labels are too long on the x axis, rotating the labels, or swapping the x and y axis to make more room for labels is sufficient. Additionally, Wilke advises that if there is no order to the bars, and they're not arranged in an intentional way, they should be reordered in a way that makes sense for the data. If the bars represent unordered categories, reorder them by ascending or descending values. 
+
+## b). 
+Wilkes advises to not use a bar plot if there are too many categories involved. This creates a cluttered and difficult to interpret bar plot. Additionally, bar plots are only sufficient if the data starts at zero. If the data doesn't start at zero, and it would hinder the graphic to start at zero, a barplot is not sufficient for this data. 
+
+## c).
+Dot plots and heat maps are offered as alternatives to bar plots in this chapter. 
+
+## d).
+Stacking bars is useful when the amount that the stacked bars sums to is in itself, a meaningful number. Stacking is also appropriate when the individual bars represent counts. 
+
+## e).
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 200,
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/cow-movies.csv"
+  },
+  "transform": [{
+    "calculate": "datum.amount / 1000000",
+    "as": "amount_millions"
+  }
+],
+  "mark": {
+    "type": "bar",
+    "color": "#cfe8ff"
+  },
+  "encoding": {
+    "x": {
+      "field": "amount_millions",
+      "type": "quantitative",
+      "title": "Weekend Gross (Million USD)"
+    },
+    "y": {
+      "field": "title",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Movie"
+    }
+  }
+}
+'|> as_vegaspec()
+```
+
+## f).
+Figure 6.8
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Median Income by Race and Age Group",
+
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/cow-income.csv"
+  },
+  "transform": [
+    {
+      "filter": {
+        "field": "race",
+        "oneOf": ["asian", "white", "hispanic", "black"]
+      }
+    }
+  ],
+
+  "mark": {
+    "type": "bar"
+  },
+
+  "encoding": {
+    "x": {
+      "field": "race",
+      "type": "nominal",
+      "title": "Racial Group",
+      "axis": { "labelAngle": 0 }
+    },
+
+    "xOffset": {
+      "field": "age"
+    },
+
+    "y": {
+      "field": "median_income",
+      "type": "quantitative",
+      "title": "Median Income (USD)",
+      "axis": { "format": "$,.0f" }
+    },
+
+    "color": {
+      "field": "age",
+      "type": "nominal",
+      "title": "Age Group",
+      "scale": {
+        "scheme": "blues"
+      }
+    }
+  }
+}
+'|> as_vegaspec()
+```
+Figure 6.9
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Median Income by Age Group for Selected Races",
+
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/cow-income.csv"
+  },
+
+  "transform": [
+    {
+      "filter": {
+        "field": "race",
+        "oneOf": ["asian", "white", "hispanic", "black"]
+      }
+    }
+  ],
+
+  "facet": {
+    "field": "race",
+    "type": "nominal",
+    "title": "Race"
+  },
+
+  "spec": {
+    "mark": "bar",
+
+    "encoding": {
+      "x": {
+        "field": "age",
+        "type": "nominal",
+        "title": "Age Group"
+      },
+
+      "y": {
+        "field": "median_income",
+        "type": "quantitative",
+        "title": "Median Income (USD)",
+        "axis": { "format": "$,.0f" }
+      }
+    }
+  }
+}
+'|> as_vegaspec()
+```
+Figure 6.11
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Life Expectancy by Country",
+
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/cow-gapminder.csv"
+  },
+  "transform": [
+  {
+    "filter": {
+      "field": "continent",
+      "equal": "Americas"
+    }
+  },
+  {
+      "aggregate": [
+        {
+          "op": "mean",
+          "field": "lifeExp",
+          "as": "avgLifeExp"
+        }
+      ],
+      "groupby": ["country"]
+    }
+],
+
+  "mark": {
+  "type": "point",
+  "filled": true
+},
+
+  "encoding": {
+    "x": {
+      "field": "avgLifeExp",
+      "type": "quantitative",
+      "title": "Average Life Expectancy (years)"
+    },
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "title": "Country",
+      "sort": {
+    "field": "avgLifeExp",
+    "op": "mean",
+    "order": "descending"
+  }
+    }
+  }
+}
+'|> as_vegaspec()
+```
+Figure 6.12 is bad because it uses bars instead of dots. All the bars have nearly the same length, which means that it's hard for the eye to distinguish. Uses dots instead draws our eyes to the end points and makes the graph much more meaningful when comparing these life expectancies.
+Figure 6.13 is bad because it has the countries on the y axis ordered alphabetically. This also makes it hard to draw any real meaning or insight when the dots are laid out this way. Ordering the y axis in descending order by average life expectancy, makes it easier to quickly see the countries with the highest and lowest life expectancies. 
+
+## Excercise 2
+
+## b). 
+1). One piece of advice from the video is to make graphs with honesty and integrity. Not only does this mean presenting data that we know is reliable, but it also means presenting data in the most effective way. Being mindful of the types of marks we are using so that data is communicated clearly to our audiences. 
+2). It's always a good idea to add context and clarity when making graphs. When we create visualizations, we have the responsibility to communicate something to our audience, and our audience has varying levels of background knowledge. That is why we must add context to our visualizations so that our findings can be communicated with our audience effectively. 
+3). Layer information, highlight the things you care about, and repeat throughout your design process. This piece of advice provides us with a repeatable sequence that can allow us to create effective visualizations that bring clarity to ambiguous data sets.  
+
+##c).
+1). The first graph that came from Tufte was the graph of Napoleon's retreat.
+2). The second graph that came from Tufte was 
+
+## Excercise 3
+
+## a). 
+A heatmap in VegaLite lingo is when data values are mapped to color instead of a mark like dot/bar. 
+
+## b).
+Figure 6.14
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Internet Users per 100 People by Country and Year",
+
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/cow-internet2.csv"
+  },
+
+  "transform": [
+    {
+      "filter": "datum.year >= 1995"
+    }
+  ],
+
+  "mark": "rect",
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": "ascending"
+    },
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "title": "Country",
+      "sort": {
+        "field": "users",
+        "op": "max",
+        "order": "descending"
+      }
+    },
+    "color": {
+      "field": "users",
+      "type": "quantitative",
+      "title": "Internet Users (per 100 people)",
+      "scale": {
+        "domain": [0, 100],
+        "scheme": "magma"
+      }
+    },
+    "tooltip": [
+      {"field": "country", "type": "nominal"},
+      {"field": "year", "type": "ordinal"},
+      {"field": "users", "type": "quantitative"}
+    ]
+  }
+}
+'|> as_vegaspec()
+```
+
+## c). 
+
+The problem that Healy presents regarding heatmaps is the problem of perception. Sometimes our eyes have difficulty distinguishing color values or data values across non adjacent areas. 
+
+## d). 
+
+In the show pony that Healy presents, this problem dissolves due to the removal of any separation between the colors. Each pixel in the heat map is adjacent and there's no dark lines of separation between the pixels. This allows us to see trends and patterns. This problem of perception is present in figure 6.14 that I created, because of the lines of separation between each pixel in the heat map. 
+
+## Excercise 4
+
+## a). 
+According to Healy, our eyes are much better at decoding lengths from a fixed baseline, as opposed to fractions of a pie. So, bar charts are usually just much more effective for our eyes to quickly see what value the data is at. 
+
+## b). 
+According to Wilkes, pie charts work well when simple fractions are being emphasized. It's easy for our eyes to distinguish 1/2 or 1/4. Pie charts also work well when the dataset is very small.
+
+## c). 
+Wilkes offers the alternative of stacked bars and side by side bars. Stacked bars can work for side-by-side comparisons of multiple conditions, or in a time series. Side-by-side bars are good for when we want to directly compare the fractions or relative proportions to one another.
+
+## d). 
+Figure 10.1
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "8th German Bundestag Party Composition",
+
+  "data": {
+    "values": [
+      {"party": "CDU/CSU", "seats": 243},
+      {"party": "SPD",     "seats": 214},
+      {"party": "FDP",     "seats": 39}
+    ]
+  },
+"mark": {"type": "arc", "outerRadius": 100},
+  "encoding": {
+    "theta": {"field": "seats", "type": "quantitative"},
+    "color": {"field": "party", "type": "nominal"},
+    "tooltip": [
+      {"field": "party", "type": "nominal"},
+      {"field": "seats", "type": "quantitative"}
+    ]
+  }
+}
+
+  
+'|> as_vegaspec()
+```
