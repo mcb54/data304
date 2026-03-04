@@ -1,0 +1,484 @@
+---
+title: "hw8"
+format: html
+output-file: "index"
+---
+---
+```{r}
+library(vegawidget)
+```
+## Excercise 1
+
+## a). Supply and Demand
+## Demand and Capacity Grouped Bars
+
+```{r}
+library(vegawidget)
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Demand and Capacity",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      fold = c("capacity_num", "demand_num"),
+      as = c("Type", "Quantity")
+    )
+  ),
+  mark = "bar",
+  encoding = list(
+    x = list(field = "date", type = "nominal"),
+    xOffset = list(field = "Type"),
+    y = list(field = "Quantity", type = "quantitative"),
+    color = list(
+      field = "Type",
+      type = "nominal",
+      scale = list(
+        domain = c("capacity_num", "demand_num"),
+        range = c("#1f77b4", "#aec7e8")
+      )
+    )
+  )
+)
+
+as_vegaspec(spec)
+```
+
+
+## Demand and Capacity Line Chart
+```{r}
+library(vegawidget)
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Demand and Capacity",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      fold = c("capacity_num", "demand_num"),
+      as = c("Type", "Quantity")
+    )
+  ),
+  mark = list(type = "line", point = FALSE),
+  encoding = list(
+    x = list(field = "date", type = "nominal"),
+    y = list(field = "Quantity", type = "quantitative"),
+    color = list(
+      field = "Type",
+      type = "nominal",
+      scale = list(
+        domain = c("capacity_num", "demand_num"),
+        range = c("#1f77b4", "#aec7e8")
+      )
+    )
+  )
+)
+
+as_vegaspec(spec)
+```
+
+## Demand and Capacity Layerd Bars
+
+```{r}
+
+library(vegawidget)
+
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Demand and Capacity",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      fold = c("capacity_num", "demand_num"),
+      as = c("Type", "Quantity")
+    )
+  ),
+  mark = list(
+    type = "bar",
+    tooltip = TRUE
+  ),
+  encoding = list(
+    x = list(field = "date", type = "nominal"),
+    y = list(field = "Quantity", type = "quantitative"),
+    color = list(
+      field = "Type",
+      type = "nominal",
+      scale = list(
+        domain = c("capacity_num", "demand_num"),
+        range = c("#1f77b4", "#aec7e8")
+      )
+    ),
+    xOffset = list(field = "Type"),
+    size = list(
+      field = "Type",
+      type = "nominal",
+      scale = list(
+        domain = c("capacity_num", "demand_num"),
+        range = c(20, 10) 
+      )
+    )
+  )
+)
+
+as_vegaspec(spec)
+```
+
+## Capacity and Unmet Demand Stacked bars
+
+```{r}
+
+
+library(vegawidget)
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Capacity and Unmet Demand",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      calculate = "max(datum.demand_num - datum.capacity_num, 0)",
+      as = "unmet_demand"
+    ),
+    list(
+      fold = c("capacity_num", "unmet_demand"),
+      as = c("Type", "Quantity")
+    )
+  ),
+  mark = "bar",
+  encoding = list(
+    x = list(field = "date", type = "nominal"),
+    y = list(
+      field = "Quantity",
+      type = "quantitative",
+      stack = "zero"
+    ),
+    color = list(
+      field = "Type",
+      type = "nominal",
+      scale = list(
+        domain = c("capacity_num", "unmet_demand"),
+        range = c("#1f77b4", "#aec7e8")
+      )
+    )
+  )
+)
+
+
+as_vegaspec(spec)
+```
+
+## Demand and Capacity Dot Plot
+```{r}
+library(vegawidget)
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Demand and Capacity",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      fold = c("capacity_num", "demand_num"),
+      as = c("Type", "Quantity")
+    )
+  ),
+  layer = list(
+    list(
+      mark = list(type = "rule", color = "gray"),
+      encoding = list(
+        x = list(field = "date", type = "nominal"),
+        y = list(
+          field = "demand_num",
+          type = "quantitative"
+        ),
+        y2 = list(field = "capacity_num")
+      )
+    ),
+    list(
+      mark = list(type = "point", filled = TRUE, size = 100),
+      encoding = list(
+        x = list(field = "date", type = "nominal"),
+        y = list(field = "Quantity", type = "quantitative"),
+        color = list(
+          field = "Type",
+          type = "nominal",
+          scale = list(
+            domain = c("capacity_num", "demand_num"),
+            range = c("#1f77b4", "#aec7e8")
+          ),
+          legend = list(title = "Measure")
+        )
+      )
+    )
+  )
+)
+
+as_vegaspec(spec)
+```
+
+
+## Unmet Demand Over Time Line Chart
+```{r}
+
+
+library(vegawidget)
+
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  title = "Unmet Demand Over Time",
+  data = list(
+    url = "https://calvin-data304.netlify.app/data/swd-lets-practice-ex-2-3.json"
+  ),
+  transform = list(
+    list(
+      calculate = "toNumber(replace(datum.capacity, ',', ''))",
+      as = "capacity_num"
+    ),
+    list(
+      calculate = "toNumber(replace(datum.demand, ',', ''))",
+      as = "demand_num"
+    ),
+    list(
+      calculate = "max(datum.demand_num - datum.capacity_num, 0)",
+      as = "unmet_demand"
+    )
+  ),
+  mark = list(
+    type = "line",
+    point = TRUE
+  ),
+  encoding = list(
+    x = list(field = "date", type = "nominal"),
+    y = list(
+      field = "unmet_demand",
+      type = "quantitative",
+      title = "Unmet Demand"
+    ),
+    color = list(
+      value = "#1f77b4"
+    )
+  )
+)
+
+as_vegaspec(spec)
+```
+
+
+## Excercise 2
+
+## a).
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {"op": "sum", "field": "perc", "as": "sum_perc"}
+      ],
+      "groupby": ["year", "sex"]
+    }
+  ],
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "sum_perc",
+      "type": "quantitative",
+      "axis": {"format": ".0%"},
+      "title": "Sum of perc"
+    },
+    "color": {
+      "field": "sex",
+      "type": "nominal",
+      "title": "Sex"
+    },
+    "tooltip": [
+      {"field": "year"},
+      {"field": "sex"},
+      {"field": "sum_perc", "format": ".0%"}
+    ]
+  },
+  "title": {
+    "text": "Sum of perc Values by Year and Sex"
+  }
+}
+'|> as_vegaspec()
+```
+
+
+
+## b).
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
+  },
+
+  "transform": [
+    {
+      "filter": {"field": "year", "oneOf": [1850, 1900, 1950, 2000]}
+    }
+  ],
+
+  "mark": {"type": "point"},
+
+  "encoding": {
+    "column": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+
+    "x": {
+      "field": "perc",
+      "type": "quantitative",
+      "title": "Men",
+      "scale": {"type": "symlog"},
+      "axis": {"format": ".0%"}
+    },
+
+    "y": {
+      "field": "perc",
+      "type": "quantitative",
+      "title": "Women",
+      "scale": {"type": "symlog"},
+      "axis": {"format": ".0%"}
+    },
+
+    "color": {"field": "sex", "type": "nominal"},
+
+    "tooltip": [
+      {"field": "job"},
+      {"field": "sex"},
+      {"field": "perc", "format": ".0%"}
+    ]
+  },
+
+  "resolve": {
+    "scale": {"x": "independent", "y": "independent"}
+  },
+
+  "title": "Percent of Men and Women Working in Various Jobs"
+}
+'|> as_vegaspec()
+```
+
+## c). 
+
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2.8.0/data/jobs.json"
+  },
+
+  "transform": [
+    {
+      "filter": {"field": "year", "oneOf": [1850, 1900, 1950, 2000]}
+    },
+    {
+      "pivot": "sex",
+      "value": "perc",
+      "groupby": ["job", "year"]
+    }
+  ],
+
+  "facet": {
+    "column": {"field": "year", "type": "ordinal"}
+  },
+
+  "spec": {
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "men",
+        "type": "quantitative",
+        "axis": {"format": ".0%"}
+      },
+      "y": {
+        "field": "women",
+        "type": "quantitative",
+        "axis": {"format": ".0%"}
+      },
+      "tooltip": [
+        {"field": "job"},
+        {"field": "men", "format": ".0%"},
+        {"field": "women", "format": ".0%"}
+      ]
+    }
+  },
+
+  "title": "Percent of Men vs Women Working in Various Jobs"
+}
+'|> as_vegaspec()
+```
+
+## Excercise 3
+
+## a). 
