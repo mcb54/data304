@@ -1,0 +1,79 @@
+---
+title: "Final Portfolio"
+format: html
+output-file: "index"
+code-tools: true
+---
+```{r}
+library(vegawidget)
+```
+## Excercise 1 (HW 4 Revision)
+
+### a).
+I like the use of the bar mark stacked, so that each twin pair is directly next to each other. Additionally, I like the use of color to map Ancestry Region because it makes it clear to see the different proportions of region broken up for a specific twin. 
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": "Twin A vs Twin B Ancestry",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/twins-genetics-long.json"
+  },
+  "width": 500,
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "twin", "type": "nominal", "title": "Individual Twins"},
+    "y": {
+      "aggregate": "mean",
+      "field": "genetic share",
+      "type": "quantitative",
+      "title": "Genetic Share"
+    },
+    "color": {"field": "region", "type": "nominal", "title": "Ancestry Region"}
+  }
+}
+' |> as_vegaspec()
+```
+
+
+### b).
+What I don't like about this example is the use of a point mark. Because of the amount of variables being mapped, it makes it really difficult to see the individual points. If the chart had used jitter, or possible even faceting, this would make it so that each individual point could be seen. 
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Twin comparison across DNA kits",
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/twins-genetics-wide.json"
+  },
+  "transform": [
+    {"fold": ["Ancestry", "23andMe", "MyHeritage"], "as": ["kit", "value"]}
+  ],
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "value",
+      "type": "quantitative",
+      "scale": {"domain": [0, 1]},
+      "title": "Estimated Ancestry Proportion"
+    },
+    "y": {"field": "region", "type": "nominal", "title": "Region"},
+    "color": {"field": "twin", "type": "nominal", "title": "Twin"},
+    "shape": {"field": "kit", "type": "nominal", "title": "DNA Kit"}
+  }
+}
+' |> as_vegaspec()
+```
+### c). 
+
+### d).
+
+## Excercise 2 (Data and Graphics Challenge)
+
+### a). Challenge 5: Data Visualization Survey
+
+
+
+## Excercise 2 (A New Challenge: Tanzania Data)
+
+The excel file I made for this excercise is available [here](data/TanzaniaDHS.xlsx)
