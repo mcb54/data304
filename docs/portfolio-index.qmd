@@ -22,3 +22,5 @@ This site showcases my coursework and projects for **DATA 304.**
 [HW 7](hw7/)
 
 [HW 8](hw8/)
+
+[Final Portfolio](finalPortfolio/) Not completed

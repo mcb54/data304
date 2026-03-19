@@ -37,7 +37,7 @@ I like the use of the bar mark stacked, so that each twin pair is directly next 
 
 
 ### b).
-What I don't like about this example is the use of a point mark. Because of the amount of variables being mapped, it makes it really difficult to see the individual points. If the chart had used jitter, or possible even faceting, this would make it so that each individual point could be seen. 
+What I don't like about this example is the use of a different color for every individual. This makes it hard to visualize which points are twin pairs. If color had been mapped to pair, our eyes can easily group together twin pairs, in order to see difference in genetic share for twin pairs. I also don't like that y-axis represents region. I think that this could've been done much more effectively if broken down into facets. 
 ```{r}
 '
 {
@@ -64,16 +64,499 @@ What I don't like about this example is the use of a point mark. Because of the 
 }
 ' |> as_vegaspec()
 ```
+
 ### c). 
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": "Ancestry kit estimates vary systematically by region",
+    "subtitleColor": "#666",
+    "fontSize": 16,
+    "fontWeight": "normal",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/twins-genetics-long.json"
+  },
+  "width": 500,
+  "height": 300,
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 2,
+    "cornerRadiusTopRight": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "region",
+      "type": "nominal",
+      "title": "Region",
+      "axis": {"labelAngle": -20}
+    },
+    "xOffset": {
+      "field": "kit",
+      "type": "nominal",
+      "sort": ["Ancestry", "23andMe", "MyHeritage"]
+    },
+    "y": {
+      "aggregate": "mean",
+      "field": "genetic share",
+      "type": "quantitative",
+      "title": "Average genetic share",
+      "axis": {"format": ".0%"}
+    },
+    "color": {
+      "field": "kit",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Ancestry", "23andMe", "MyHeritage"],
+        "range": ["#3266ad", "#e07b39", "#4a9e6b"]
+      },
+      "legend": {
+        "title": "Kit",
+        "orient": "top-left"
+      }
+    },
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "kit", "type": "nominal", "title": "Kit"},
+      {
+        "aggregate": "mean",
+        "field": "genetic share",
+        "type": "quantitative",
+        "title": "Avg share",
+        "format": ".1%"
+      }
+    ]
+  }
+}
+' |> as_vegaspec()
+```
+
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": "Twins agree closely across all three kits",
+    "fontSize": 16,
+    "fontWeight": "normal",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "https://calvin-data304.netlify.app/data/twins-genetics-long.json"
+  },
+  "transform": [
+    {
+      "pivot": "id",
+      "value": "genetic share",
+      "groupby": ["pair", "region", "kit"]
+    }
+  ],
+  "facet": {
+    "field": "kit",
+    "type": "nominal",
+    "sort": ["Ancestry", "23andMe", "MyHeritage"],
+    "header": {
+      "title": null,
+      "labelFontSize": 13,
+      "labelFontWeight": "normal"
+    }
+  },
+  "spec": {
+    "width": 200,
+    "height": 200,
+    "layer": [
+      {
+        "mark": {
+          "type": "line",
+          "strokeDash": [5, 4],
+          "color": "#bbb",
+          "strokeWidth": 1
+        },
+        "data": {"values": [{"x": 0, "y": 0}, {"x": 1, "y": 1}]},
+        "encoding": {
+          "x": {"field": "x", "type": "quantitative"},
+          "y": {"field": "y", "type": "quantitative"}
+        }
+      },
+      {
+        "mark": {
+          "type": "point",
+          "filled": true,
+          "opacity": 0.85,
+          "size": 90
+        },
+        "encoding": {
+          "x": {
+            "field": "A",
+            "type": "quantitative",
+            "title": "Twin A genetic share",
+            "axis": {"format": ".0%"},
+            "scale": {"domain": [0, 1]}
+          },
+          "y": {
+            "field": "B",
+            "type": "quantitative",
+            "title": "Twin B genetic share",
+            "axis": {"format": ".0%"},
+            "scale": {"domain": [0, 1]}
+          },
+          "color": {
+            "field": "pair",
+            "type": "nominal",
+            "scale": {
+              "domain": [1, 2, 3, 4, 5, 6],
+              "range": ["#3266ad", "#e07b39", "#4a9e6b", "#c752a0", "#888888", "#b8880a"]
+            },
+            "legend": {"title": "Twin pair"}
+          },
+          "shape": {
+            "field": "region",
+            "type": "nominal",
+            "legend": {"title": "Region"}
+          },
+          "tooltip": [
+            {"field": "pair", "type": "nominal", "title": "Pair"},
+            {"field": "region", "type": "nominal", "title": "Region"},
+            {"field": "kit", "type": "nominal", "title": "Kit"},
+            {"field": "A", "type": "quantitative", "title": "Twin A", "format": ".1%"},
+            {"field": "B", "type": "quantitative", "title": "Twin B", "format": ".1%"}
+          ]
+        }
+      }
+    ]
+  }
+}
+' |> as_vegaspec()
+```
 
 ### d).
 
+I first used a grouped bar chart to show average genetic share across regions for the three different kits. The biggest story from this graph is how the Ancestry DNA kit differs most greatly from the other two kits, specifically in Central Africa. Ancestry reports higher numbers for NW Europe, and lower numbers for SE Europe and West Africa, compared to the other two kits. This insight points to the idea that Ancestry may categorize regions differentyly, or that Ancestry makes more rigid groupings for their DNA test kits.
+
+Next, I made a scatter plot that has the genetic share of twin a on the x-axis and the genetic share of twin b on the y-axis. This makes it easy for us to distinguish differences among twins. The diagonal line through the middle of the chart represents perfect agreement between the genetic share of twin a and twin b. The main story of this graphic is that there's very similar genetic shares between twins, regardless of what test they use. The genetic share of each twin pair was very close to the diagonal line, indicating similar genetic share. 
+
+
 ## Excercise 2 (Data and Graphics Challenge)
 
-### a). Challenge 5: Data Visualization Survey
+### Challenge 3: Net Promoter Score
+
+### a). 
+How our business compares to other businesses (over time and in February 2020)?
+
+In the NPS overtime graph, our business has had the second lowest NPS overtime, only beating Competitor D. Our NPS overtime has stayed in the 30-40 range, while top Competitor A has a NPS in the 40-50 range. Our business has showed a trend of increasing growth from January 2019 - February 2020. 
+
+When looking at the graph of NPS by company for February 2020, our business ranked fourth highest NPS among all 15 competitors, with a value of 37. When looking at the graph showing all competitors in February of 2020, it's clear that only three companies outrank our business, A, B, and C. Our business beats out competitors D-O in February of 2020.
+
+### b). 
+How the components of the net promoter score for our business have changed over time?
+
+For our business, the Promoter component has grown significantly from January 2019-February 2020, from 39% to 63%. 
+
+The passives share has declined during this time period, from about 51% to 13%.
+
+The demoter share has also slightly increased during this time period, but not significantly. Demoter share went from 10% in January of 2019, to 25% in February of 2020.
+
+Overall, the increase of promoters and decrease of passives, likely contributed to the increasing NPS for Our Business from January 2019 to February of 2020.
+
+
+## Excercise 3 (A New Challenge: Tanzania Data)
+
+### a).
+The excel file I made for this excercise is available [here](https://raw.githubusercontent.com/mcb54/data304/refs/heads/main/data/TanzaniaDHScsv.csv)
+To deal with surveys that spanned two calender years, I used the start year as the main year my new CSV file I created. 
+
+### b).
+
+```{r}
+'
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Tanzania DHS trends: contraception use, unmet need, and total fertility rate (1991-2016)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/mcb54/data304/refs/heads/main/data/TanzaniaDHScsv.csv"
+  },
+  "title": {
+    "text": "Tanzania Family Planning Trends, 1991-2016",
+    "fontSize": 16,
+    "anchor": "start"
+  },
+  "resolve": {
+    "scale": {"y": "independent"}
+  },
+  "layer": [
+    {
+      "mark": {"type": "area", "opacity": 0.08, "interpolate": "monotone"},
+      "encoding": {
+        "x": {
+          "field": "Year_Clean",
+          "type": "quantitative",
+          "axis": {"title": null, "labelAngle": -30, "grid": true, "gridColor": "#ddd", "gridOpacity": 0.5},
+          "scale": {"domain": [1989, 2017]}
+        },
+        "y": {
+          "field": "Contraception_Use_Rate",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": {"title": "Percentage (%)"}
+        },
+        "color": {"value": "#3B8BD4"}
+      }
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 2.5, "interpolate": "monotone"},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Contraception_Use_Rate",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": null
+        },
+        "color": {"value": "#3B8BD4"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 70},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Contraception_Use_Rate",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": null
+        },
+        "color": {"value": "#3B8BD4"},
+        "tooltip": [
+          {"field": "Year_Clean", "title": "Survey"},
+          {"field": "Contraception_Use_Rate", "title": "Modern contraception use", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "area", "opacity": 0.07, "interpolate": "monotone"},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Unmet_Family_Planning_Need",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": null
+        },
+        "color": {"value": "#E24B4A"}
+      }
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 2.5, "interpolate": "monotone"},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Unmet_Family_Planning_Need",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": null
+        },
+        "color": {"value": "#E24B4A"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 70},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Unmet_Family_Planning_Need",
+          "type": "quantitative",
+          "scale": {"domain": [0, 50]},
+          "axis": null
+        },
+        "color": {"value": "#E24B4A"},
+        "tooltip": [
+          {"field": "Year_Clean", "title": "Survey"},
+          {"field": "Unmet_Family_Planning_Need", "title": "Unmet need for family planning", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 2, "strokeDash": [6, 4], "interpolate": "monotone"},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Total_Fertility_Rate",
+          "type": "quantitative",
+          "scale": {"domain": [4, 8]},
+          "axis": {"title": "Total fertility rate", "orient": "right", "format": ".1f"}
+        },
+        "color": {"value": "#BA7517"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 60},
+      "encoding": {
+        "x": {"field": "Year_Clean", "type": "quantitative"},
+        "y": {
+          "field": "Total_Fertility_Rate",
+          "type": "quantitative",
+          "scale": {"domain": [4, 8]},
+          "axis": null
+        },
+        "color": {"value": "#BA7517"},
+        "tooltip": [
+          {"field": "Year_Clean", "title": "Survey"},
+          {"field": "Total_Fertility_Rate", "title": "Total fertility rate", "format": ".1f"}
+        ]
+      }
+    }
+  ],
+  "width": 560,
+  "height": 300,
+  "config": {
+    "view": {"stroke": null},
+    "font": "sans-serif",
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "domainColor": "#ccc",
+      "tickColor": "#ccc",
+      "gridColor": "#eee"
+    }
+  }
+}
+' |> as_vegaspec()
+```
+
+## c). 
+The story that I am trying to tell with the data is that Tanzania has made notable progress over the past 25 years in the realm of family planning. Over the years, the rate of contraception use has increased substantially in Tanzania from about 6% to 38%. The fertility rate has also decreased during these years, likely due to the increased rate of contraception. Additionally, Tanzania has made a slight decrease in the percent of women experiencing an unmet need for family planning. While this is progress, the percent of unmet need for family planning has only decreased by 5%, from 27% down to 22%. My story highlights this slower decrease, when compared to the sharp increase in modern contraception. By overlaying the lines in my line chart, you are able to easily see that contraception use is increasing at at much quicker rate, than unmet need for family planning is decreasing. This would be more difficult to make this comparison if I had used side by side line charts, or faceting. 
+
+## Excercise 4 : My Masterpiece
+
+### a). 
+```{r}
+library(vegawidget)
+
+spec_json <- '{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Do bigger budgets make better movies?",
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2.2.0/data/movies.json"
+  },
+  "transform": [
+    { "filter": "datum[\\"Production Budget\\"] != null && datum[\\"Rotten Tomatoes Rating\\"] != null" },
+    { "filter": "year(datum[\\"Release Date\\"]) >= yearMin && year(datum[\\"Release Date\\"]) <= yearMax" }
+  ],
+  "params": [
+    { "name": "yearMin", "value": 1990, "bind": { "input": "range", "min": 1970, "max": 2010, "step": 1, "name": "Year from: " } },
+    { "name": "yearMax", "value": 2010, "bind": { "input": "range", "min": 1970, "max": 2010, "step": 1, "name": "Year to: " } }
+  ],
+  "vconcat": [
+    {
+      "width": 550,
+      "height": 300,
+      "layer": [
+        {
+          "mark": "point",
+          "encoding": {
+            "x": { "field": "Production Budget", "type": "quantitative", "scale": { "type": "log" }, "title": "Budget (USD)" },
+            "y": { "field": "Rotten Tomatoes Rating", "type": "quantitative", "title": "RT Score" },
+            "color": { "field": "MPAA Rating", "type": "nominal" },
+            "tooltip": [
+              { "field": "Title", "type": "nominal" },
+              { "field": "Production Budget", "type": "quantitative" },
+              { "field": "Rotten Tomatoes Rating", "type": "quantitative" }
+            ]
+          }
+        },
+        {
+          "mark": "line",
+          "transform": [{ "regression": "Rotten Tomatoes Rating", "on": "Production Budget" }],
+          "encoding": {
+            "x": { "field": "Production Budget", "type": "quantitative" },
+            "y": { "field": "Rotten Tomatoes Rating", "type": "quantitative" }
+          }
+        }
+      ]
+    },
+    {
+      "width": 550,
+      "height": 140,
+      "mark": "bar",
+      "encoding": {
+        "x": { "field": "Major Genre", "type": "nominal", "sort": "-y" },
+        "y": { "aggregate": "mean", "field": "Rotten Tomatoes Rating", "type": "quantitative", "title": "Avg RT Score" },
+        "color": { "aggregate": "mean", "field": "Rotten Tomatoes Rating", "type": "quantitative", "scale": {"scheme": "redyellowgreen", "domain": [20, 70]},
+        "legend": { "title": "Avg RT score" } },
+        "tooltip": [
+          { "field": "Major Genre", "type": "nominal" },
+          { "aggregate": "mean", "field": "Rotten Tomatoes Rating", "type": "quantitative" }
+        ]
+      }
+    }
+  ]
+}'
+
+as_vegaspec(spec_json)
+```
+
+### b).
+
+I created a scatterplot that compares movie budget to Rotten Tomato score. I concatenated my graphic to also show average Rotten Tomato score by genre. The trendline demonstrates that from 1970-2010, as movie budget increases, Rotten Tomato score decreases. 
+
+When designing my graphic, in addition to encoding X and Y, I choose to encode the color channel with MPAA rating. Color was also used to encode average Rotten Tomato score on the bar chart by genre, using the redyellowgreen scheme to make it easy to compare ratings across genres. 
+
+I also choose to layer the scatter plot with a regression line to show trends in Rotten Tomato score. I added in sliders that update each mark automatically as the slider is moved. The sliders make it so that you can filter by specific year ranges, and marks and the trendline will automatically update. 
+
+Additionally, I choose to use a logarithmic scale for the x-axis, because it better fit the wide range of budgets that the data set presented. 
+
+One of the alternatives that I considered was instead of concatinating and doing an Average Rotten Tomato Score by genre, doing the Rotten Tomato Score and Budget graph with facets for each genre. I decided to not do this though, because when I tested it out, there were so many facets and it was hard to make comparisons between groups. 
+
+### c).
+The dataset that I used was the Vega-Lite movie data set.
+[Click here to see the data.](https://cdn.jsdelivr.net/npm/vega-datasets@2.2.0/data/movies.json)
+
+
+## Excercise 5 : Using My Palette
+
+### a). an encoding channel other than x or y.
+In exercise 4, I used color to encode MPAA Rating.
+
+### b). layers
+In exercise 4, I used layers to lay a regression line on top of my scatter plot.
+
+### c). facets
+In exercise 1, I faceted by kit to compare genetic share differences.
+
+### d). concatenation or repeat
+In exercise 4, I used vconcat to concatenate the different charts.
+
+### e). non-default settings for a channel’s scale or guide
+In exercise 3, I used a unique domain for year in the scale option. 
+
+### f). tooltips
+In exercise 4, I used tooltips for each field in the graph. 
+
+### g). another kind of interaction (panning/zooming, brushing, sliders, etc.)
+In exercise 4, I used sliders to control start and end year.
+
+
+## Excercise 6 : Keep Learning
+
+### a). Cite 2 or 3 specific examples in the graphics in your portfolio where you used a feature of Vega-Lite/vegabrite/Altair/altair that we did not learn in class. 
+
+1. In exercise 4, I used transform to create a regression line of Rotton Tomatos rating on Production budget.
+
+2. In exercise 4, I used vconcat to concatenate the bar, line, and point marks. We briefly talked about concat in class, but I was able to read through documentation and learn more that allowed me to create the overlaid line, as well as the bar graph and scatterplot with vconcat. 
+
+### b). You will also want to keep learning about principles of good graphics design. Cite 2 or 3 specific examples where you followed the advice in one of the resources below.
+
+1. In [Chapter 4](https://clauswilke.com/dataviz/color-basics.html) of Wilkes, he states, "There are three fundamental use cases for color in data visualizations: (i) we can use color to distinguish groups of data from each other; (ii) we can use color to represent data values; and (iii) we can use color to highlight. The types of colors we use and the way in which we use them are quite different for these three cases."
+
+I followed Wilkes advice of using color to distinguish groups of data from each other in excercise 1. I used color to represent kit, because kits don't have a specific order. Wilkes also warns against using color as a decoration in graphs. I followed this advice by using a simplistic blue, green, and orange color palette. 
+
+2. [Chapter 3](https://clauswilke.com/dataviz/coordinate-systems-axes.html) of Wilkes discusses Coordinate Systems and Axes. Wilkes states, "Log scales are frequently used when the data set contains numbers of very different magnitudes." I put this into practice in my portfolio in exercise 4. I used a logarithmic scale to represent movie budget, because of the wide range of values. 
 
 
 
-## Excercise 2 (A New Challenge: Tanzania Data)
 
-The excel file I made for this excercise is available [here](data/TanzaniaDHS.xlsx)
