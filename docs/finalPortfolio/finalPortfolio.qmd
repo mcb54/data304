@@ -12,6 +12,7 @@ library(vegawidget)
 ### a).
 I like the use of the bar mark stacked, so that each twin pair is directly next to each other. Additionally, I like the use of color to map Ancestry Region because it makes it clear to see the different proportions of region broken up for a specific twin. 
 ```{r}
+#| code-fold: true 
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
@@ -39,6 +40,7 @@ I like the use of the bar mark stacked, so that each twin pair is directly next 
 ### b).
 What I don't like about this example is the use of a different color for every individual. This makes it hard to visualize which points are twin pairs. If color had been mapped to pair, our eyes can easily group together twin pairs, in order to see difference in genetic share for twin pairs. I also don't like that y-axis represents region. I think that this could've been done much more effectively if broken down into facets. 
 ```{r}
+#| code-fold: true 
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -68,6 +70,7 @@ What I don't like about this example is the use of a different color for every i
 ### c). 
 
 ```{r}
+#| code-fold: true 
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
@@ -137,6 +140,7 @@ What I don't like about this example is the use of a different color for every i
 
 
 ```{r}
+#| code-fold: true 
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
@@ -273,6 +277,7 @@ To deal with surveys that spanned two calender years, I used the start year as t
 ### b).
 
 ```{r}
+#| code-fold: true 
 '
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -435,6 +440,7 @@ The story that I am trying to tell with the data is that Tanzania has made notab
 
 ### a). 
 ```{r}
+#| code-fold: true 
 library(vegawidget)
 
 spec_json <- '{
